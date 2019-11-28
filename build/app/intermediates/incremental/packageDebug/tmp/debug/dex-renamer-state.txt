@@ -1,0 +1,4 @@
+#Thu Nov 14 12:27:06 IST 2019
+base.0=/Users/hirensamtani/IdeaProjects/samplecombo/build/app/intermediates/transforms/dexMerger/debug/0
+path.0=classes.dex
+renamed.0=classes.dex
