@@ -10,25 +10,28 @@ class TabNormal extends StatefulWidget {
 }
 
 class _TabNormalState extends State<TabNormal> {
-  List _cities =
-  ["Cluj-Napoca", "Bucuresti", "Timisoara", "Brasov", "Constanta"];
+  List _appraiserNameList =
+  ["Appraiser1", "Appraiser2", "Appraiser3", "Appraiser4", "Appraiser5"];
+
+  List _appraiserValueList =
+  ["AppVal1", "AppVal2", "AppVal3", "AppVal4", "AppVal5"];
 
   List<DropdownMenuItem<String>> _dropDownMenuItems;
-  String _currentCity;
+  String _currentAppraiser;
 
   @override
   void initState() {
     // TODO: implement initState
     _dropDownMenuItems = getDropDownMenuItems();
-    _currentCity = _dropDownMenuItems[0].value;
+    _currentAppraiser = _dropDownMenuItems[0].value;
     super.initState();
   }
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
     List<DropdownMenuItem<String>> items = new List();
-    for (String city in _cities) {
+    for(int i=0;i<_appraiserNameList.length;i++) {
       items.add(new DropdownMenuItem(
-          value: city,
-          child: new Text(city)
+          value: _appraiserValueList[i],
+          child: new Text(_appraiserNameList[i])
       ));
     }
     return items;
@@ -86,7 +89,7 @@ class _TabNormalState extends State<TabNormal> {
                   TableRow(children:[
                     Text("Inv_nm1"),
                     new DropdownButton(
-                      value: _currentCity,
+                      value: _currentAppraiser,
                       items: _dropDownMenuItems,
                       onChanged: changedDropDownItem,
                     ),
@@ -137,9 +140,10 @@ class _TabNormalState extends State<TabNormal> {
 
     );
   }
-  void changedDropDownItem(String selectedCity) {
+  void changedDropDownItem(String selectedAppraiser) {
     setState(() {
-      _currentCity = selectedCity;
+      _currentAppraiser = selectedAppraiser;
+     // print("hbs _selVal ${_currentAppraiser}");
     });
   }
 
