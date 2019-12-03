@@ -16,22 +16,48 @@ class _TabNormalState extends State<TabNormal> {
   List _appraiserValueList =
   ["AppVal1", "AppVal2", "AppVal3", "AppVal4", "AppVal5"];
 
-  List<DropdownMenuItem<String>> _dropDownMenuItems;
+  List<DropdownMenuItem<String>> _appraiserDropDownMenuItems;
   String _currentAppraiser;
+
+
+  List _examinerNameList =
+  ["Examiner1", "Examiner2", "Examiner3", "Examiner4", "Examiner5"];
+
+  List _examinerValueList =
+  ["ExaminerVal1", "ExaminerVal2", "ExaminerVal3", "ExaminerVal4", "ExaminerVal5"];
+
+  List<DropdownMenuItem<String>> _examinerDropDownMenuItems;
+  String _currentExaminer;
+
 
   @override
   void initState() {
     // TODO: implement initState
-    _dropDownMenuItems = getDropDownMenuItems();
-    _currentAppraiser = _dropDownMenuItems[0].value;
+    _appraiserDropDownMenuItems = getAppraiserDropDownMenuItems();
+    _currentAppraiser = _appraiserDropDownMenuItems[0].value;
+
+    _examinerDropDownMenuItems = getExaminerDropDownMenuItems();
+    _currentExaminer = _examinerDropDownMenuItems[0].value;
+
     super.initState();
   }
-  List<DropdownMenuItem<String>> getDropDownMenuItems() {
+  List<DropdownMenuItem<String>> getAppraiserDropDownMenuItems() {
     List<DropdownMenuItem<String>> items = new List();
     for(int i=0;i<_appraiserNameList.length;i++) {
       items.add(new DropdownMenuItem(
           value: _appraiserValueList[i],
           child: new Text(_appraiserNameList[i])
+      ));
+    }
+    return items;
+  }
+
+  List<DropdownMenuItem<String>> getExaminerDropDownMenuItems() {
+    List<DropdownMenuItem<String>> items = new List();
+    for(int i=0;i<_examinerNameList.length;i++) {
+      items.add(new DropdownMenuItem(
+          value: _examinerValueList[i],
+          child: new Text(_examinerNameList[i])
       ));
     }
     return items;
@@ -83,20 +109,29 @@ class _TabNormalState extends State<TabNormal> {
           ),
           SingleChildScrollView(
             scrollDirection: Axis.vertical,
-            child: Container (
-                padding: EdgeInsets.all(10),
-                child: Table(children: [
-                  TableRow(children:[
-                    Text("Inv_nm1"),
-                    new DropdownButton(
-                      value: _currentAppraiser,
-                      items: _dropDownMenuItems,
-                      onChanged: changedDropDownItem,
-                    ),
-                    Text("Examiner Combo Here")
-                  ]),
-                ])
-            ),),
+            child: new ConstrainedBox(
+              constraints: new BoxConstraints(),
+              child: Container (
+                  padding: EdgeInsets.all(10),
+                  child: Table(children: [
+                    TableRow(children:[
+                      Text("Inv_nm1"),
+                      new DropdownButton(
+                        value: _currentAppraiser,
+                        items: _appraiserDropDownMenuItems,
+                        onChanged: changedAppraiserDropDownItem,
+                      ),
+                      new DropdownButton(
+                        value: _currentExaminer,
+                        items: _examinerDropDownMenuItems,
+                        onChanged: changedExaminerDropDownItem,
+                      ),
+                    ]),
+
+                  ])
+              ),
+            ),
+          ),
           Expanded (
             child:  Align (
                 alignment: Alignment.bottomCenter,
@@ -140,10 +175,16 @@ class _TabNormalState extends State<TabNormal> {
 
     );
   }
-  void changedDropDownItem(String selectedAppraiser) {
+  void changedAppraiserDropDownItem(String selectedAppraiser) {
     setState(() {
       _currentAppraiser = selectedAppraiser;
-     // print("hbs _selVal ${_currentAppraiser}");
+      // print("hbs _selVal ${_currentAppraiser}");
+    });
+  }
+  void changedExaminerDropDownItem(String selectedExaminer) {
+    setState(() {
+      _currentExaminer = selectedExaminer;
+      // print("hbs _selVal ${_currentAppraiser}");
     });
   }
 
